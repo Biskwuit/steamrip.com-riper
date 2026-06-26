@@ -23,5 +23,5 @@ for game_page_url in games_list_page.find_all("li", {"class": "az-list-item"}):
         "link": game_link
     })
 
-with open('data.json', 'w') as jfile:
+with open('data.json', 'w', encoding='utf-8') as jfile:
     json.dump(games, jfile, indent=4, ensure_ascii=False)

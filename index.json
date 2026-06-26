@@ -1,0 +1,24 @@
+{
+    "games": [
+        {
+            "dirlink": "https://steamrip.com/007-first-light-free-download/",
+            "download_links": {
+                "gofile": [
+                    "https://gofile.io/d/lrITJ8"
+                ],
+                "bzzhr": [
+                    "https://bzzhr.to/rcby3xmpgwb4"
+                ],
+                "fileditchfiles": [
+                    "https://fileditchfiles.me/alpha7/ad39bc302695f0f9bd13/007-First-Light-SteamRIP.com.rar"
+                ]
+            },
+            "game": "007 First Light",
+            "minReqs": {
+                "cpu": "INTEL CORE i5 9500, AMD RYZEN 5 3500",
+                "gpu": "NVIDIA GFORCE GTX 1660, AMD RX 5700, INTEL DISCRETE GPU EQUIVALENT",
+                "os": "MICROSOFT WINDOWS 10/11, 64-BIT"
+            }
+        }
+    ]
+}
