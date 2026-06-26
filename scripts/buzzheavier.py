@@ -1,22 +1,19 @@
-import undetected_chromedriver as uc
+import cloudscraper
 from bs4 import BeautifulSoup
-import time
+from bhdownloader import get_file_info, download
 
-options = uc.ChromeOptions()
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
+BASE_URL = "https://buzzheavier.com"
 
-# Explicitly set Chrome binary location for Linux/Codespaces
-options.binary_location = "/usr/bin/chromium-browser"
+scraper = cloudscraper.create_scraper(interpreter='js2py', delay=10)
 
-driver = uc.Chrome(options=options, use_subprocess=True)
-driver.get("https://bzzhr.to/rcby3xmpgwb4")
+soup = BeautifulSoup(scraper.get(f"{BASE_URL}/cwe2hrbif4al").text, 'html.parser')
 
-# Wait for Cloudflare challenge to solve
-time.sleep(10)
+dwnlink = soup.find("a", {"class": "download-btn"}).get("hx-get")
 
-soup = BeautifulSoup(driver.page_source, 'html.parser')
-print(soup)
+print(f'{BASE_URL}{dwnlink}')
 
-driver.quit()   
+with scraper.get(f'{BASE_URL}{dwnlink}', stream=True) as r:
+    r.raise_for_status()
+    with open("Mario Kart 64 (axekin.com).z64", "wb") as f:
+        for chunk in r.iter_content(8192):
+            f.write(chunk)

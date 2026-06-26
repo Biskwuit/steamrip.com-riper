@@ -63,5 +63,5 @@ games["games"].append({
         }
 })
 
-with open('index.json', 'w', encoding='utf-8') as index_file:
-    json.dump(games, index_file, indent=4, ensure_ascii=False)
+with open("index.html", "w") as html:
+    htmlwrite(soup)
