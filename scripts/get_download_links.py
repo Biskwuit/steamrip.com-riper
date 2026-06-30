@@ -15,9 +15,12 @@ def get_uploader_name(url):
 def ident_game_name(name):
     return name.split(' Free Download')[0]
 
+def find_specs(spec):
+    return game_page.find("strong", string=spec).find_parent("li").get_text().split(spec)[1]
+
 games_list_page = scrap(f'{BASE_URL}/games-list-page/')
 
-games = {"games":[]}
+games = {"downloads":[]}
 downloads = {}
 
 # for game_page_url in games_list_page.find_all("li", {"class": "az-list-item"}):
@@ -45,23 +48,16 @@ for download_links in game_page.find_all("a", string="DOWNLOAD HERE"):
 
     downloads.setdefault(host, []).append(link)
 
-cpu = game_page.find("strong", string="Processor:").find_parent("li").get_text().split('Processor: ')[1]
-directx = game_page.find("strong", string="DirectX").find_parent("li").get_text().split('DirectX ')[1]
-gpu = game_page.find("strong", string="Graphics:").find_parent("li").get_text().split('Graphics: ')[1]
-os = game_page.find("strong", string="OS:").find_parent("li").get_text().split('OS: ')[1]
-
-
 games["games"].append({
+    "title": ident_game_name(game_name),
+})
+
+with open('index.json', 'w', encoding='utf-8') as jfile:
+    json.dump(games, jfile, indent=4, ensure_ascii=False)
+
+print(games)
+
+
     "dirlink": f'{BASE_URL}{game_infos.find("a").get("href")}',
     "download_links": downloads,
     "game": ident_game_name(game_name),
-    "minReqs": {
-        "cpu" : cpu,
-        "directx" : directx,
-        "gpu" : gpu,
-        "os" : os
-        }
-})
-
-with open("index.html", "w") as html:
-    htmlwrite(soup)
